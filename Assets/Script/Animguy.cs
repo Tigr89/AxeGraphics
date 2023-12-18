@@ -71,11 +71,13 @@ public class Animguy : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
+            Animeguy.SetBool("Jump", true);
             isJumping = true;
         }
 
         else
         {
+            Animeguy.SetBool("Jump", false);
             isJumping = false;
         }
     }
