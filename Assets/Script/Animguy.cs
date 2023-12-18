@@ -9,6 +9,8 @@ public class Animguy : MonoBehaviour
     private Animator Animeguy;
     public float speed;
     private SpriteRenderer flip;
+    private bool isWalking = false;
+    private bool isJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +22,12 @@ public class Animguy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isWalking == true)
         {
             Animeguy.SetBool("Walk", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        else
         {
             Animeguy.SetBool("Walk", false);
         }
@@ -33,23 +35,48 @@ public class Animguy : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
-            flip.flipX = false;
+            //flip.flipX = false;
+            Quaternion Rotation = Quaternion.Euler(0, 0, 0);
+
+            transform.rotation = Rotation;
+            isWalking = true;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-            flip.flipX = true;
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+            //flip.flipX = true;
+            Quaternion Rotation = Quaternion.Euler(0, 180, 0);
+
+            transform.rotation = Rotation;
+            isWalking = true;
         }
 
-        if (Input.GetKey(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.up * speed * Time.deltaTime);
+            isWalking = true;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
+            isWalking = true;
+        }
+
+        else
+        {
+            isWalking = false;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            isJumping = true;
+        }
+
+        else
+        {
+            isJumping = false;
         }
     }
 }
